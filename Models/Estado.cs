@@ -7,4 +7,12 @@ public class Estado
     {
         this.nombre = nombre;
     }
+
+    public Boolean esEnCurso(){
+        return this.nombre == "EnCurso";
+    }
+    
+    public string getNombre(){
+        return this.nombre;
+    }
 }
