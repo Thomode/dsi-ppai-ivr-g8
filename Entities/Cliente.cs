@@ -5,14 +5,13 @@ public class Cliente
     private int dni;
     private string nombreCompleto;
     private int nroCelular; 
-    private List<InformacionCliente> info;
+    private List<InformacionCliente> info = new List<InformacionCliente>();
 
-    public Cliente(int dni, string nombreCompleto, int nroCelular, List<InformacionCliente> info)
+    public Cliente(int dni, string nombreCompleto, int nroCelular)
     {
         this.dni = dni;
         this.nombreCompleto = nombreCompleto;
         this.nroCelular = nroCelular;
-        this.info = info;
     }
 
     public string getNombreCompleto(){

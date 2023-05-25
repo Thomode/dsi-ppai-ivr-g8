@@ -6,16 +6,15 @@ public class OpcionLlamada
     private string mensajeSubOpciones;
     private string nombre;
     private int nroOrden;
-    private List<SubOpcionLlamada> subOpcionLlamada;
+    private List<SubOpcionLlamada> subOpcionLlamada = new List<SubOpcionLlamada>();
     private List<Validacion> validacionRequerida = new List<Validacion>();
 
-    public OpcionLlamada(string audioMensajeOpciones, string mensajeSubOpciones, string nombre, int nroOrden, List<SubOpcionLlamada> subOpcionLlamada)
+    public OpcionLlamada(string audioMensajeOpciones, string mensajeSubOpciones, string nombre, int nroOrden)
     {
         this.audioMensajeOpciones = audioMensajeOpciones;
         this.mensajeSubOpciones = mensajeSubOpciones;
         this.nombre = nombre;
         this.nroOrden = nroOrden;
-        this.subOpcionLlamada = subOpcionLlamada;
     }
 
     public string getAudioMensajeOpciones()

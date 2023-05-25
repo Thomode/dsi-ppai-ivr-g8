@@ -6,15 +6,14 @@ public class CategoriaLlamada
     private string mensajeOpciones;
     private string nombre;
     private int nroOrden;
-    private OpcionLlamada opcion;
+    private List<OpcionLlamada> opcion = new List<OpcionLlamada>();
 
-    public CategoriaLlamada(string audioMensajeOpciones, string mensajeOpciones, string nombre, int nroOrden, OpcionLlamada opcion)
+    public CategoriaLlamada(string audioMensajeOpciones, string mensajeOpciones, string nombre, int nroOrden)
     {
         this.audioMensajeOpciones = audioMensajeOpciones;
         this.mensajeOpciones = mensajeOpciones;
         this.nombre = nombre;
         this.nroOrden = nroOrden;
-        this.opcion = opcion;
     }
 
     public string getAudioMensajeOpciones()
