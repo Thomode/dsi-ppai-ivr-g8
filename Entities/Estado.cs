@@ -1,4 +1,4 @@
-namespace dsi_ppai_grupo_8.Models;
+namespace dsi_ppai_grupo_8.Entities;
 
 public class Estado
 {   

@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using dsi_ppai_grupo_8.Models;
+using dsi_ppai_grupo_8.Entities;
 
 namespace dsi_ppai_grupo_8.Controllers;
 
