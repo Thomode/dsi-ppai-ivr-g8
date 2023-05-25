@@ -4,7 +4,7 @@ public class Cliente
 {
     private int dni;
     private string nombreCompleto;
-    private int nroCelular; 
+    private int nroCelular;
     private List<InformacionCliente> info = new List<InformacionCliente>();
 
     public Cliente(int dni, string nombreCompleto, int nroCelular)
@@ -14,18 +14,22 @@ public class Cliente
         this.nroCelular = nroCelular;
     }
 
-    public string getNombreCompleto(){
+    public string getNombreCompleto()
+    {
         return this.nombreCompleto;
     }
 
-    public Boolean esCliente(int dni){
+    public bool esCliente(int dni)
+    {
         return this.dni == dni;
     }
 
-    public Boolean esInformacionCorrecta(string dato){
-        Boolean esInformacionCorrecta = false;
+    public bool esInformacionCorrecta(string dato)
+    {
+        bool esInformacionCorrecta = false;
 
-        foreach(InformacionCliente informacion in info){
+        foreach (InformacionCliente informacion in info)
+        {
             if (informacion.esInformacionCorrecta(dato))
             {
                 esInformacionCorrecta = true;

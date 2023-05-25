@@ -12,7 +12,7 @@ public class SubOpcionLlamada
         this.nroOrden = nroOrden;
     }
 
-    public Boolean esNro(int nro)
+    public bool esNro(int nro)
     {
         return this.nroOrden == nro;
     }

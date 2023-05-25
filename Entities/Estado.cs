@@ -14,21 +14,21 @@ public class Estado
         return this.nombre;
     }
 
-    public Boolean esIniciada()
+    public bool esIniciada()
     {
         return this.nombre == "Iniciada";
     }
-    public Boolean esFinalizada()
+    public bool esFinalizada()
     {
         return this.nombre == "Finalizada";
     }
 
-    public Boolean esEstadoEnCurso()
+    public bool esEstadoEnCurso()
     {
         return this.nombre == "EnCurso";
     }
 
-    public Boolean esEstadoCancelado()
+    public bool esEstadoCancelado()
     {
         return this.nombre == "Cancelado";
     }

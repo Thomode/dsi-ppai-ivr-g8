@@ -11,19 +11,23 @@ public class CambioEstado
         this.estado = estado;
     }
 
-    public string getFechaHoraInicio(){
+    public string getFechaHoraInicio()
+    {
         return this.fechaHoraInicio;
     }
 
-    public Boolean esEstadoInicial(){
+    public bool esEstadoInicial()
+    {
         return estado.esIniciada();
     }
 
-    public Boolean noEsEstadoFinalizado(){
+    public bool noEsEstadoFinalizado()
+    {
         return estado.esFinalizada();
     }
 
-    public string getNombreEstado(){
+    public string getNombreEstado()
+    {
         return this.estado.getNombre();
     }
 }

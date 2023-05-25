@@ -28,7 +28,7 @@ public class Llamada
     }
 
     // Que tiene que retornar
-    public Boolean esDeDuracion()
+    public bool esDeDuracion()
     {
         return true;
     }
