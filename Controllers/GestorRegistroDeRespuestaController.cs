@@ -29,8 +29,8 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     [NonAction]
     public Llamada buscarLlamada()
     {
-        Random rm = new Random();
-        int index = rm.Next(llamadas.Count);
+        Random random = new Random();
+        int index = random.Next(llamadas.Count);
 
         return llamadas[index];
     }
