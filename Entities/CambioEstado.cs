@@ -1,4 +1,4 @@
-namespace dsi_ppai_grupo_8.Entities;
+namespace dsi_ppai_ivr_g8.Entities;
 
 public class CambioEstado
 {
@@ -11,8 +11,19 @@ public class CambioEstado
         this.estado = estado;
     }
 
-    public Boolean esEstadoEnCurso(){
-        return estado.esEnCurso();
+    public string getFechaHoraInicio(){
+        return this.fechaHoraInicio;
     }
 
+    public Boolean esEstadoInicial(){
+        return estado.esIniciada();
+    }
+
+    public Boolean noEsEstadoFinalizado(){
+        return estado.esFinalizada();
+    }
+
+    public string getNombreEstado(){
+        return this.estado.getNombre();
+    }
 }

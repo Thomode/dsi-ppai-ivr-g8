@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using dsi_ppai_grupo_8.Entities;
+using dsi_ppai_ivr_g8.Entities;
 
-namespace dsi_ppai_grupo_8.Controllers;
+namespace dsi_ppai_ivr_g8.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]

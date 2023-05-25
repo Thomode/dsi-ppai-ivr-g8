@@ -1,4 +1,4 @@
-namespace dsi_ppai_grupo_8.Entities;
+namespace dsi_ppai_ivr_g8.Entities;
 
 public class Estado
 {   
@@ -8,11 +8,22 @@ public class Estado
         this.nombre = nombre;
     }
 
-    public Boolean esEnCurso(){
-        return this.nombre == "EnCurso";
-    }
-    
     public string getNombre(){
         return this.nombre;
     }
+
+    public Boolean esIniciada(){
+        return this.nombre == "Iniciada";
+    }
+    public Boolean esFinalizada(){
+        return this.nombre == "Finalizada";
+    }
+
+    public Boolean esEstadoEnCurso(){
+        return this.nombre == "EnCurso";
+    }
+    
+    public Boolean esEstadoCancelado(){
+        return this.nombre == "Cancelado";
+    }    
 }
