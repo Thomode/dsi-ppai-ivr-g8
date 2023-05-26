@@ -21,16 +21,47 @@ public class Llamada
         this.cliente = cliente;
     }
 
-    // Como calcular la duracion
-    public int calcularDuracion()
+    public void calcularDuracion()
     {
-        return 0;
+        DateTime fechaHoraIniciada = new DateTime();
+        DateTime fechaHoraFinalizada = new DateTime();
+
+        foreach (CambioEstado cambio in cambiosEstados)
+        {
+            if (cambio.esEstadoInicial())
+            {
+                fechaHoraIniciada = cambio.getFechaHoraInicio();
+            }
+            if (cambio.esEstadoFinalizada())
+            {
+                fechaHoraFinalizada = cambio.getFechaHoraInicio();
+            }
+        }
+
+        TimeSpan duracion = fechaHoraFinalizada - fechaHoraIniciada;
+
+        this.duracion = (int)duracion.TotalMinutes;
     }
 
     // Que tiene que retornar
-    public bool esDeDuracion()
+    public bool esDePeriodo(DateTime fechaInicio, DateTime fechaFinal)
     {
-        return true;
+        DateTime fechaHoraIniciada = new DateTime();
+        DateTime fechaHoraFinalizada = new DateTime();
+
+        foreach (CambioEstado cambio in cambiosEstados)
+        {
+            if (cambio.esEstadoInicial())
+            {
+                fechaHoraIniciada = cambio.getFechaHoraInicio();
+            }
+            if (cambio.esEstadoFinalizada())
+            {
+                fechaHoraFinalizada = cambio.getFechaHoraInicio();
+            }
+        }
+
+        return fechaHoraIniciada.CompareTo(fechaInicio) >= 0 && fechaHoraFinalizada.CompareTo(fechaFinal) <= 0;
     }
 
     public int getDuracion()
@@ -43,7 +74,7 @@ public class Llamada
         return cliente.getNombreCompleto();
     }
 
-    // Que tiene que retornar?
+    // Que tiene que retornar (creo que para este caso de uso no aplica)
     public string getRespuesta()
     {
         return "";
@@ -59,27 +90,24 @@ public class Llamada
         this.duracion = duracion;
     }
 
-    // Funcion falta realizar
-    public void setEstadoActual()
+    public void setEstadoActual(CambioEstado cambioEstado)
     {
-
+        this.cambiosEstados.Add(cambioEstado);
     }
 
-    // Funcion falta realizar
+    // Funcion falta realizar (es la misma funcion del anterior)
     public void newCambioDeEstado()
     {
 
     }
 
-    // Funcion falta realizar
-    public void setOpcion()
+    public void setOpcion(OpcionLlamada opcion)
     {
-
+        this.opcionSeleccionada.Add(opcion);
     }
 
-    // Funcion falta realizar
-    public void setSubOpcion()
+    public void setSubOpcion(SubOpcionLlamada subOpcion)
     {
-
+        this.subOpcionSeleccionada.Add(subOpcion);
     }
 }

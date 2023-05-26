@@ -2,16 +2,16 @@ namespace dsi_ppai_ivr_g8.Entities;
 
 public class CambioEstado
 {
-    private string fechaHoraInicio;
+    private DateTime fechaHoraInicio;
     private Estado estado;
 
-    public CambioEstado(string fechaHoraInicio, Estado estado)
+    public CambioEstado(DateTime fechaHoraInicio, Estado estado)
     {
         this.fechaHoraInicio = fechaHoraInicio;
         this.estado = estado;
     }
 
-    public string getFechaHoraInicio()
+    public DateTime getFechaHoraInicio()
     {
         return this.fechaHoraInicio;
     }
@@ -21,7 +21,8 @@ public class CambioEstado
         return estado.esIniciada();
     }
 
-    public bool noEsEstadoFinalizado()
+    // cambiar nombre en el diagrama
+    public bool esEstadoFinalizada()
     {
         return estado.esFinalizada();
     }
