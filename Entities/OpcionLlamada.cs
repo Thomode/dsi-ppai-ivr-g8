@@ -38,4 +38,20 @@ public class OpcionLlamada
         return this.nombre;
     }
 
+    public void setSubOpcion(SubOpcionLlamada subOpcion)
+    {
+        this.subOpcionLlamada.Add(subOpcion);
+    }
+
+    public List<string> getNombreSubOpciones()
+    {   
+        List<string> nombreSubOpciones = new List<string>();
+
+        foreach(SubOpcionLlamada subOpcion in subOpcionLlamada)
+        {
+            nombreSubOpciones.Add(subOpcion.getNombre());
+        }
+
+        return nombreSubOpciones;
+    }
 }

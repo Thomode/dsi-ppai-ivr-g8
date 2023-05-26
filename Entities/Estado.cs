@@ -30,6 +30,6 @@ public class Estado
 
     public bool esEstadoCancelado()
     {
-        return this.nombre == "Cancelado";
+        return this.nombre == "Cancelada";
     }
 }

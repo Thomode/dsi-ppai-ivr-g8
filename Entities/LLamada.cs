@@ -2,22 +2,17 @@ namespace dsi_ppai_ivr_g8.Entities;
 
 public class Llamada
 {
-    private string descripcionOperador;
-    private string detalleAccionRequerida;
+    private string descripcionOperador = "";
+    private string detalleAccionRequerida = "";
     private int duracion = 0;
-    private string encuestaEnviada;
-    private string observacionAuditor;
     private List<CambioEstado> cambiosEstados = new List<CambioEstado>();
     private Cliente cliente;
-    private List<OpcionLlamada> opcionSeleccionada = new List<OpcionLlamada>();
+    private OpcionLlamada opcionSeleccionada;
     private List<SubOpcionLlamada> subOpcionSeleccionada = new List<SubOpcionLlamada>();
+    public CategoriaLlamada categoriaLlamada;
 
-    public Llamada(string descripcionOperador, string detalleAccionRequerida, string encuestaEnviada, string observacionAuditor, Cliente cliente)
+    public Llamada(Cliente cliente)
     {
-        this.descripcionOperador = descripcionOperador;
-        this.detalleAccionRequerida = detalleAccionRequerida;
-        this.encuestaEnviada = encuestaEnviada;
-        this.observacionAuditor = observacionAuditor;
         this.cliente = cliente;
     }
 
@@ -103,11 +98,48 @@ public class Llamada
 
     public void setOpcion(OpcionLlamada opcion)
     {
-        this.opcionSeleccionada.Add(opcion);
+        this.opcionSeleccionada = opcion;
     }
 
     public void setSubOpcion(SubOpcionLlamada subOpcion)
     {
         this.subOpcionSeleccionada.Add(subOpcion);
+    }
+
+    public bool esEstadoInicial()
+    {   
+        bool esInicial = false;
+
+        foreach( CambioEstado cambio in cambiosEstados)
+        {
+            if (cambio.esEstadoInicial())
+            {
+                esInicial = true;
+                break;
+            }
+        }
+
+        return esInicial;
+    }
+
+    public bool esEstadoFinalizada()
+    {   
+        bool esFinalizada = false;
+
+        foreach( CambioEstado cambio in cambiosEstados)
+        {
+            if (cambio.esEstadoFinalizada())
+            {
+                esFinalizada = true;
+                break;
+            }
+        }
+
+        return esFinalizada;
+    }
+
+    public void setCategoriaLlamada(CategoriaLlamada categoria)
+    {
+        this.categoriaLlamada = categoria;
     }
 }
