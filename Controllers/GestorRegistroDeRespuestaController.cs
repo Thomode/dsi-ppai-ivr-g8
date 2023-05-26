@@ -7,39 +7,51 @@ namespace dsi_ppai_ivr_g8.Controllers;
 [Route("[controller]")]
 public class GestorRegistroDeRespuestaController : ControllerBase
 {
-    private List<Llamada> llamadas = new List<Llamada>
-    {
-        /*
-        new Llamada("tomas1"),
-        new Llamada("tomas2"),
-        new Llamada("tomas3"),
-        new Llamada("tomas4")
-        */
-    };
+    private Cliente cliente;
+    private List<Llamada> llamadas;
+    private Llamada llamada;
+    private Llamada llamadaCliente;
+    private Estado estado;
+    private CambioEstado cambioEstado;
+
     public GestorRegistroDeRespuestaController()
     {
+        this.estado = new Estado("esInicializada");
+        this.cambioEstado = new CambioEstado(DateTime.Now, estado);
 
+        this.cliente = new Cliente(29232323, "Jose Pereyra", 351232324);
+        this.llamada = new Llamada("", "", "", "", this.cliente);
+        this.llamada.setEstadoActual(this.cambioEstado);
+
+        this.llamadas = new List<Llamada> {
+            this.llamada
+        };
+
+        this.tomarOpcionOperador();
     }
 
     [HttpGet]
-    public Llamada mostrarDatosLlamadas()
+    public dynamic mostrarDatosLlamadas()
     {
-        return buscarLlamada();
+        //Estado estado = buscarEstado();
+        return new {
+            nombreEstado = this.estado.getNombre()
+        };
     }
 
     [NonAction]
     public void tomarOpcionOperador()
     {
-
+        this.buscarLlamada();
     }
 
     [NonAction]
-    public Llamada buscarLlamada()
+    public void buscarLlamada()
     {
-        Random random = new Random();
-        int index = random.Next(llamadas.Count);
-
-        return llamadas[index];
+        foreach(Llamada llamada in llamadas)
+        {
+            
+        }
     }
 
     [NonAction]
@@ -49,9 +61,9 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     }
 
     [NonAction]
-    public string getFechaHoraActual()
+    public DateTime getFechaHoraActual()
     {
-        return DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+        return DateTime.Now;
     }
 
     [NonAction]

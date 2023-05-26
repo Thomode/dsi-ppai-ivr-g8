@@ -2,7 +2,7 @@ namespace dsi_ppai_ivr_g8.Entities;
 
 public class Estado
 {
-    private string nombre;
+    private string nombre {set; get;}
 
     public Estado(string nombre)
     {
