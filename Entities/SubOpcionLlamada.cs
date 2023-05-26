@@ -33,4 +33,8 @@ public class SubOpcionLlamada
     {
         return "";
     }
+    public void setValidacion(Validacion validacion)
+    {
+        this.validacionRequerida.Add(validacion);
+    }
 }

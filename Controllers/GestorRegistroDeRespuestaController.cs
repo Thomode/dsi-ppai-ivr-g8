@@ -41,7 +41,10 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         validacion2.setOpcionValidacion(opcionValidacion3);
 
         SubOpcionLlamada subOpcionLlamada1 = new SubOpcionLlamada("1.SubOpcion", 1);
+        subOpcionLlamada1.setValidacion(validacion1);
+
         SubOpcionLlamada subOpcionLlamada2 = new SubOpcionLlamada("2.SubOpcion", 2);
+        subOpcionLlamada2.setValidacion(validacion2);
 
         OpcionLlamada opcionLlamada = new OpcionLlamada("Audio opcion", "Mensaje opcion", "opcion1", 1);
         opcionLlamada.setSubOpcion(subOpcionLlamada1);
@@ -69,6 +72,8 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         string categoria = this.llamada.categoriaLlamada.getNombre();
         string opcion = this.llamada.categoriaLlamada.getNombreOpcion();
         List<string> subopciones = this.llamada.categoriaLlamada.getNombreSubOpciones();
+
+        this.buscarValidacionesSubOpcion(subopciones);
 
         return new {
             nombreCliente = nombreCliente,
@@ -122,9 +127,10 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     }
 
     [NonAction]
-    public void buscarValidacionesSubOpcion()
+    public dynamic buscarValidacionesSubOpcion(List<string> subOpciones) 
     {
-        this.llamada.
+        // foreach(SubOpcionLlamada subOpcion in llamadas)
+        return "";
     }
 
     [NonAction]
