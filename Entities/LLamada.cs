@@ -9,7 +9,7 @@ public class Llamada
     private Cliente cliente;
     private OpcionLlamada opcionSeleccionada;
     private List<SubOpcionLlamada> subOpcionSeleccionada = new List<SubOpcionLlamada>();
-    public CategoriaLlamada categoriaLlamada;
+    private CategoriaLlamada categoriaLlamada;
 
     public Llamada(Cliente cliente)
     {
@@ -143,6 +143,11 @@ public class Llamada
         this.categoriaLlamada = categoria;
     }
 
+    public CategoriaLlamada getCategoriaLlamada()
+    {
+        return this.categoriaLlamada;
+    }
+
     public List<SubOpcionLlamada> getSubOpcionSeleccionada()
     {
         return this.subOpcionSeleccionada;
@@ -155,5 +160,9 @@ public class Llamada
     public void setSubOpcionesSeleccionada(SubOpcionLlamada subOpcionLlamada)
     {
         this.subOpcionSeleccionada.Add(subOpcionLlamada);
+    }
+    public OpcionLlamada getOpcionSeleccionada()
+    {
+        return this.opcionSeleccionada;
     }
 }

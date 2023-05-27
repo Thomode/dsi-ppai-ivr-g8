@@ -75,9 +75,8 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     public dynamic mostrarDatosLlamadas()
     {
         string nombreCliente = this.llamada.getNombreClienteDeLlamada();
-        string categoria = this.llamada.categoriaLlamada.getNombre();
-        string opcion = this.llamada.categoriaLlamada.getNombreOpcion();
-        //List<string> subopciones = this.llamada.categoriaLlamada.getNombreSubOpciones();
+        string categoria = this.llamada.getCategoriaLlamada().getNombre();
+        string opcion = this.llamada.getOpcionSeleccionada().getNombre();
 
         var subOpciones = this.buscarSubOpcionYValidaciones();
         var subOpcionesOrdenadas = this.ordenarSubOpciones(subOpciones);
@@ -158,7 +157,6 @@ public class GestorRegistroDeRespuestaController : ControllerBase
                 validaciones.Add(new
                 {
                     nombre = validacionRequerida.getMensajeValidacion(),
-                    nroOrden = validacionRequerida.getNroOrden(),
                     opcionesValidacion = opcionesV
                 });
             }
