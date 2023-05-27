@@ -24,6 +24,10 @@ public class Validacion
         return this.nombre;
     }
 
+    public string getNombre(){
+        return this.nombre;
+    }
+
     // Que tiene que retornar
     public string getValidacion()
     {

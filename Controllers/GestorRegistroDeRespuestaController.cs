@@ -186,15 +186,31 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     }
 
     [HttpPost]
-    public void tomarRespuestaValidacion()
+    public void tomarRespuestaValidacion(dynamic validacion)
     {
+        string nombreSubOpcion = validacion.nombreSubOpcion;
+        string nombreValidacion = validacion.nombreValidacion;
+        string descripcionOpcionV = validacion.descripcionOpcionV;
 
+        this.validarRespuestaIngresada(nombreSubOpcion, nombreValidacion, descripcionOpcionV);
     }
 
     [NonAction]
-    public void validarRespuestaIngresada()
+    public void validarRespuestaIngresada(string nombreSubOpcion, string nombreValidacion, string descripcionOpcionV)
     {
-
+        foreach(SubOpcionLlamada subOpcion in llamada.getSubOpcionSeleccionada())
+        {
+            if (subOpcion.getNombre() == nombreSubOpcion)
+            {
+                foreach(Validacion validacion in subOpcion.getValidacionRequerida())
+                {
+                    if(validacion.getNombre() == nombreValidacion)
+                    {
+                        
+                    }
+                }
+            }
+        }
     }
 
     [NonAction]
