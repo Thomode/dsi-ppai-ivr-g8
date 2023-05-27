@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using dsi_ppai_ivr_g8.Entities;
 
 namespace dsi_ppai_ivr_g8.Controllers;
@@ -57,6 +59,10 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         this.llamada = new Llamada(this.cliente);
         this.llamada.setCategoriaLlamada(categoriaLlamada);
         this.llamada.setEstadoActual(this.cambioEstado);
+        this.llamada.setOpcionSeleccionada(opcionLlamada);
+        this.llamada.setSubOpcionesSeleccionada(subOpcionLlamada2);
+        this.llamada.setSubOpcionesSeleccionada(subOpcionLlamada1);
+        
 
         this.llamadas = new List<Llamada> {
             this.llamada
@@ -67,19 +73,21 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpGet]
     public dynamic mostrarDatosLlamadas()
-    {   
+    {
         string nombreCliente = this.llamada.getNombreClienteDeLlamada();
         string categoria = this.llamada.categoriaLlamada.getNombre();
         string opcion = this.llamada.categoriaLlamada.getNombreOpcion();
-        List<string> subopciones = this.llamada.categoriaLlamada.getNombreSubOpciones();
+        //List<string> subopciones = this.llamada.categoriaLlamada.getNombreSubOpciones();
 
-        this.buscarValidacionesSubOpcion(subopciones);
+        var subOpciones = this.buscarSubOpcionYValidaciones();
+        var subOpcionesOrdenadas = this.ordenarSubOpciones(subOpciones);
 
-        return new {
+        return new
+        {
             nombreCliente = nombreCliente,
             categoria = categoria,
             opcion = opcion,
-            subopciones = subopciones
+            subOpciones = subOpcionesOrdenadas
         };
     }
 
@@ -94,9 +102,9 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     [NonAction]
     public void buscarLlamada()
     {
-        foreach(Llamada llamada in llamadas)
+        foreach (Llamada llamada in llamadas)
         {
-            if(llamada.esEstadoInicial() && !llamada.esEstadoFinalizada())
+            if (llamada.esEstadoInicial() && !llamada.esEstadoFinalizada())
             {
                 this.llamadaCliente = llamada;
             }
@@ -105,10 +113,10 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [NonAction]
     public void asignarEstadoEnCurso()
-    {  
+    {
         Estado estadoEnCurso = new Estado("Iniciada");
 
-        foreach(Estado estado in estados) 
+        foreach (Estado estado in estados)
         {
             if (estado.esEstadoEnCurso())
             {
@@ -127,16 +135,48 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     }
 
     [NonAction]
-    public dynamic buscarValidacionesSubOpcion(List<string> subOpciones) 
+    public dynamic buscarSubOpcionYValidaciones()
     {
-        // foreach(SubOpcionLlamada subOpcion in llamadas)
-        return "";
+        var subOpciones = new List<dynamic>();
+
+        foreach (SubOpcionLlamada subOpcion in this.llamadaCliente.getSubOpcionSeleccionada())
+        {
+            var validaciones = new List<dynamic>();
+
+            foreach (Validacion validacionRequerida in subOpcion.getValidacionRequerida())
+            {
+                var opcionesV = new List<dynamic>();
+
+                foreach (OpcionValidacion opcionValidacion in validacionRequerida.getOpcionValidacion())
+                {
+                    opcionesV.Add(new
+                    {
+                        descripcion = opcionValidacion.getDescripcion()
+                    });
+                }
+
+                validaciones.Add(new
+                {
+                    nombre = validacionRequerida.getMensajeValidacion(),
+                    nroOrden = validacionRequerida.getNroOrden(),
+                    opcionesValidacion = opcionesV
+                });
+            }
+            subOpciones.Add(new
+            {
+                nombre = subOpcion.getNombre(),
+                nroOrden = subOpcion.getNroOrden(),
+                validaciones = validaciones
+            });
+
+        }
+        return subOpciones;
     }
 
     [NonAction]
-    public void ordenarValidacion()
+    public dynamic ordenarSubOpciones(List<dynamic> subOpcionesYValidaciones)
     {
-
+        return subOpcionesYValidaciones.OrderBy(sub => sub.nroOrden).ToArray();
     }
 
     [NonAction]
@@ -145,7 +185,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     }
 
-    [NonAction]
+    [HttpPost]
     public void tomarRespuestaValidacion()
     {
 

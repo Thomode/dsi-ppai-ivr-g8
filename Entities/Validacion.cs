@@ -38,4 +38,9 @@ public class Validacion
     {
         this.opcionValidacion.Add(opcionValidacion);
     }
+
+    public List<OpcionValidacion> getOpcionValidacion()
+    {
+        return this.opcionValidacion;
+    }
 }

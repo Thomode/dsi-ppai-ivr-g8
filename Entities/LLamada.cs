@@ -142,4 +142,18 @@ public class Llamada
     {
         this.categoriaLlamada = categoria;
     }
+
+    public List<SubOpcionLlamada> getSubOpcionSeleccionada()
+    {
+        return this.subOpcionSeleccionada;
+    }
+
+    public void setOpcionSeleccionada(OpcionLlamada opcionLlamada)
+    {
+        this.opcionSeleccionada = opcionLlamada;
+    }
+    public void setSubOpcionesSeleccionada(SubOpcionLlamada subOpcionLlamada)
+    {
+        this.subOpcionSeleccionada.Add(subOpcionLlamada);
+    }
 }

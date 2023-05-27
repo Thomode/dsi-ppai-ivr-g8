@@ -22,6 +22,11 @@ public class SubOpcionLlamada
         return this.nombre;
     }
 
+    public int getNroOrden()
+    {
+        return this.nroOrden;
+    }
+
     // Que tiene que retornar?
     public string getValidaciones()
     {
@@ -36,5 +41,10 @@ public class SubOpcionLlamada
     public void setValidacion(Validacion validacion)
     {
         this.validacionRequerida.Add(validacion);
+    }
+
+    public List<Validacion> getValidacionRequerida ()
+    {
+        return this.validacionRequerida;
     }
 }
