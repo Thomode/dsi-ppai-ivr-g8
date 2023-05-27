@@ -1,6 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using System.Text.Json;
-using System.Text.Json.Serialization;
 using dsi_ppai_ivr_g8.Entities;
 
 namespace dsi_ppai_ivr_g8.Controllers;
@@ -9,12 +7,8 @@ namespace dsi_ppai_ivr_g8.Controllers;
 [Route("[controller]")]
 public class GestorRegistroDeRespuestaController : ControllerBase
 {
-    private Cliente cliente;
     private List<Llamada> llamadas;
-    private Llamada llamada;
     private Llamada llamadaCliente;
-    private Estado estado;
-    private CambioEstado cambioEstado;
     private DateTime fechaHoraActual;
     private List<Estado> estados = new List<Estado>{
         new Estado("Iniciada"),
@@ -25,8 +19,36 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     public GestorRegistroDeRespuestaController()
     {
-        this.estado = new Estado("Iniciada");
-        this.cambioEstado = new CambioEstado(DateTime.Now, estado);
+        this.tomarOpcionOperador();
+        this.buscarLlamada();
+        this.getFechaHoraActual();
+        this.asignarEstadoEnCurso();
+    }
+
+    [HttpGet]
+    public dynamic mostrarDatosLlamadas()
+    {
+        string nombreCliente = this.llamadaCliente.getNombreClienteDeLlamada();
+        string categoria = this.llamadaCliente.getCategoriaLlamada().getNombre();
+        string opcion = this.llamadaCliente.getOpcionSeleccionada().getNombre();
+
+        var subOpciones = this.buscarSubOpcionYValidaciones();
+        var subOpcionesOrdenadas = this.ordenarSubOpciones(subOpciones);
+
+        return new
+        {
+            nombreCliente = nombreCliente,
+            categoria = categoria,
+            opcion = opcion,
+            subOpciones = subOpcionesOrdenadas
+        };
+    }
+
+    [NonAction]
+    public void tomarOpcionOperador()
+    {
+        Estado estado = new Estado("Iniciada");
+        CambioEstado cambioEstado = new CambioEstado(DateTime.Now, estado);
 
         OpcionValidacion opcionValidacion1 = new OpcionValidacion(true, "1991");
         OpcionValidacion opcionValidacion2 = new OpcionValidacion(false, "1997");
@@ -55,47 +77,17 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         CategoriaLlamada categoriaLlamada = new CategoriaLlamada("Audio Categoria", "Mensaje Categoria", "Categoria1", 1);
         categoriaLlamada.setOpcionLlamada(opcionLlamada);
 
-        this.cliente = new Cliente(29232323, "Jose Pereyra", 351232324);
-        this.llamada = new Llamada(this.cliente);
-        this.llamada.setCategoriaLlamada(categoriaLlamada);
-        this.llamada.setEstadoActual(this.cambioEstado);
-        this.llamada.setOpcionSeleccionada(opcionLlamada);
-        this.llamada.setSubOpcionesSeleccionada(subOpcionLlamada2);
-        this.llamada.setSubOpcionesSeleccionada(subOpcionLlamada1);
+        Cliente cliente = new Cliente(29232323, "Jose Pereyra", 351232324);
+        Llamada llamada = new Llamada(cliente);
+        llamada.setCategoriaLlamada(categoriaLlamada);
+        llamada.setEstadoActual(cambioEstado);
+        llamada.setOpcionSeleccionada(opcionLlamada);
+        llamada.setSubOpcionesSeleccionada(subOpcionLlamada2);
+        llamada.setSubOpcionesSeleccionada(subOpcionLlamada1);
         
-
         this.llamadas = new List<Llamada> {
-            this.llamada
+            llamada
         };
-
-        this.tomarOpcionOperador();
-    }
-
-    [HttpGet]
-    public dynamic mostrarDatosLlamadas()
-    {
-        string nombreCliente = this.llamada.getNombreClienteDeLlamada();
-        string categoria = this.llamada.getCategoriaLlamada().getNombre();
-        string opcion = this.llamada.getOpcionSeleccionada().getNombre();
-
-        var subOpciones = this.buscarSubOpcionYValidaciones();
-        var subOpcionesOrdenadas = this.ordenarSubOpciones(subOpciones);
-
-        return new
-        {
-            nombreCliente = nombreCliente,
-            categoria = categoria,
-            opcion = opcion,
-            subOpciones = subOpcionesOrdenadas
-        };
-    }
-
-    [NonAction]
-    public void tomarOpcionOperador()
-    {
-        this.buscarLlamada();
-        this.getFechaHoraActual();
-        this.asignarEstadoEnCurso();
     }
 
     [NonAction]
@@ -196,7 +188,14 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     [NonAction]
     public void validarRespuestaIngresada(string nombreSubOpcion, string nombreValidacion, string descripcionOpcionV)
     {
-        foreach(SubOpcionLlamada subOpcion in llamada.getSubOpcionSeleccionada())
+        
+    }
+
+    [NonAction]
+    public OpcionValidacion buscarOpcionValidacion(string nombreSubOpcion, string nombreValidacion, string descripcionOpcionV)
+    {
+        OpcionValidacion opcionV = null;
+        foreach(SubOpcionLlamada subOpcion in llamadaCliente.getSubOpcionSeleccionada())
         {
             if (subOpcion.getNombre() == nombreSubOpcion)
             {
@@ -204,11 +203,18 @@ public class GestorRegistroDeRespuestaController : ControllerBase
                 {
                     if(validacion.getNombre() == nombreValidacion)
                     {
-                        
+                        foreach(OpcionValidacion opcionValidacion in validacion.getOpcionValidacion())
+                        {
+                            if (opcionValidacion.getDescripcion() == descripcionOpcionV)
+                            {
+                                opcionV = opcionValidacion;
+                            }
+                        }
                     }
                 }
             }
         }
+        return opcionV;
     }
 
     [NonAction]
