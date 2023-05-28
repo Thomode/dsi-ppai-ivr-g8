@@ -4,18 +4,25 @@ using dsi_ppai_ivr_g8.Entities;
 namespace dsi_ppai_ivr_g8.Controllers;
 
 [ApiController]
-[Route("[controller]")]
+[Route("api")]
 public class GestorRegistroDeRespuestaController : ControllerBase
 {
     private List<Llamada> llamadas;
     private Llamada llamadaCliente;
     private DateTime fechaHoraActual;
-    private List<Estado> estados = new List<Estado>{
+    private List<Estado> estados = new List<Estado> {
         new Estado("Iniciada"),
         new Estado("EnCurso"),
         new Estado("Finalizada"),
         new Estado("Cancelada")
     };
+    private List<Accion> acciones = new List<Accion> {
+        new Accion("Accion1"),
+        new Accion("Accion2"),
+        new Accion("Accion3")
+    };
+    private string descripcionOperador = "";
+    private string accionRequerida = "";
 
     public GestorRegistroDeRespuestaController()
     {
@@ -26,7 +33,8 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     }
 
     [HttpGet]
-    public dynamic mostrarDatosLlamadas()
+    [Route("datos-llamada")]
+    public dynamic mostrarDatosLlamada()
     {
         string nombreCliente = this.llamadaCliente.getNombreClienteDeLlamada();
         string categoria = this.llamadaCliente.getCategoriaLlamada().getNombre();
@@ -77,14 +85,24 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         CategoriaLlamada categoriaLlamada = new CategoriaLlamada("Audio Categoria", "Mensaje Categoria", "Categoria1", 1);
         categoriaLlamada.setOpcionLlamada(opcionLlamada);
 
-        Cliente cliente = new Cliente(29232323, "Jose Pereyra", 351232324);
+        InformacionCliente info1 = new InformacionCliente("1991", validacion1, opcionValidacion1);
+        InformacionCliente info2 = new InformacionCliente("1997", validacion1);
+        InformacionCliente info3 = new InformacionCliente("1999", validacion1);
+
+        InformacionCliente info4 = new InformacionCliente("1991", validacion2, opcionValidacion1);
+        InformacionCliente info5 = new InformacionCliente("1997", validacion2);
+        InformacionCliente info6 = new InformacionCliente("1999", validacion2);
+
+        Cliente cliente = new Cliente(29232323, "Jose Pereyra", 351232324,
+            new List<InformacionCliente> { info1, info2, info3, info4, info5, info6 });
+
         Llamada llamada = new Llamada(cliente);
         llamada.setCategoriaLlamada(categoriaLlamada);
         llamada.setEstadoActual(cambioEstado);
         llamada.setOpcionSeleccionada(opcionLlamada);
         llamada.setSubOpcionesSeleccionada(subOpcionLlamada2);
         llamada.setSubOpcionesSeleccionada(subOpcionLlamada1);
-        
+
         this.llamadas = new List<Llamada> {
             llamada
         };
@@ -176,45 +194,16 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     }
 
     [HttpPost]
-    public void tomarRespuestaValidacion(dynamic validacion)
+    [Route("validacion")]
+    public bool tomarRespuestaValidacion(string descripcionOpcionV)
     {
-        string nombreSubOpcion = validacion.nombreSubOpcion;
-        string nombreValidacion = validacion.nombreValidacion;
-        string descripcionOpcionV = validacion.descripcionOpcionV;
-
-        this.validarRespuestaIngresada(nombreSubOpcion, nombreValidacion, descripcionOpcionV);
+        return this.validarRespuestaIngresada(descripcionOpcionV);
     }
 
     [NonAction]
-    public void validarRespuestaIngresada(string nombreSubOpcion, string nombreValidacion, string descripcionOpcionV)
+    public bool validarRespuestaIngresada(string descripcionOpcionV)
     {
-        
-    }
-
-    [NonAction]
-    public OpcionValidacion buscarOpcionValidacion(string nombreSubOpcion, string nombreValidacion, string descripcionOpcionV)
-    {
-        OpcionValidacion opcionV = null;
-        foreach(SubOpcionLlamada subOpcion in llamadaCliente.getSubOpcionSeleccionada())
-        {
-            if (subOpcion.getNombre() == nombreSubOpcion)
-            {
-                foreach(Validacion validacion in subOpcion.getValidacionRequerida())
-                {
-                    if(validacion.getNombre() == nombreValidacion)
-                    {
-                        foreach(OpcionValidacion opcionValidacion in validacion.getOpcionValidacion())
-                        {
-                            if (opcionValidacion.getDescripcion() == descripcionOpcionV)
-                            {
-                                opcionV = opcionValidacion;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        return opcionV;
+        return this.llamadaCliente.getCliente().esInformacionCorrecta(descripcionOpcionV);
     }
 
     [NonAction]
@@ -223,20 +212,59 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     }
 
-    [NonAction]
-    public void tomarDescripcionRespuesta()
+    [HttpPost]
+    [Route("descripcion-operador")]
+    public bool tomarDescripcionRespuesta(string descripcionOperador)
     {
+        bool esValido = false;
 
+        if (descripcionOperador != "")
+        {
+            this.descripcionOperador = descripcionOperador;
+            esValido = true;
+        }
+
+        return esValido;
     }
 
-    [NonAction]
-    public void confirmarOperacion()
+    [HttpGet]
+    [Route("acciones")]
+    public List<string> mostrarAcciones()
     {
+        List<string> acciones = new List<string>();
 
+        foreach(Accion accion in this.acciones)
+        {
+            acciones.Add(accion.getDescripcion());
+        }
+
+        return acciones;
     }
 
     [NonAction]
     public void registrarAccion()
+    {
+
+    }
+
+    [HttpPost]
+    [Route("accion-requerida")]
+    public bool tomarAccionRequerida(string accionRequerida)
+    {   
+        bool esValido = false;
+
+        if(accionRequerida != "")
+        {
+            this.accionRequerida = accionRequerida;
+            esValido = true;
+        }
+
+        return esValido;
+    }
+
+
+    [NonAction]
+    public void confirmarOperacion()
     {
 
     }

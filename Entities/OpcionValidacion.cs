@@ -11,9 +11,9 @@ public class OpcionValidacion
         this.descripcion = descripcion;
     }
 
-    public bool esCorrecta(string datoAValidar)
+    public bool esCorrecta()
     {
-        return this.descripcion == datoAValidar;
+        return this.correcta;
     }
 
     public string getDescripcion()

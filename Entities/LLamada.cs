@@ -10,10 +10,12 @@ public class Llamada
     private OpcionLlamada opcionSeleccionada;
     private List<SubOpcionLlamada> subOpcionSeleccionada = new List<SubOpcionLlamada>();
     private CategoriaLlamada categoriaLlamada;
+    private Accion accionRequerida;
 
-    public Llamada(Cliente cliente)
+    public Llamada(Cliente cliente, Accion accionRequerida = null)
     {
         this.cliente = cliente;
+        this.accionRequerida = accionRequerida;
     }
 
     public void calcularDuracion()
@@ -164,5 +166,15 @@ public class Llamada
     public OpcionLlamada getOpcionSeleccionada()
     {
         return this.opcionSeleccionada;
+    }
+
+    public Cliente getCliente()
+    {
+        return this.cliente;
+    }
+
+    public Accion getAccionRequerida()
+    {
+        return this.accionRequerida;
     }
 }
