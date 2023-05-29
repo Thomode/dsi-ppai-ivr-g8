@@ -62,28 +62,32 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         OpcionValidacion opcionValidacion2 = new OpcionValidacion(false, "1997");
         OpcionValidacion opcionValidacion3 = new OpcionValidacion(false, "1999");
 
-        Validacion validacion1 = new Validacion("Audio Validacion", "validacion1", 1);
-        validacion1.setOpcionValidacion(opcionValidacion1);
-        validacion1.setOpcionValidacion(opcionValidacion2);
-        validacion1.setOpcionValidacion(opcionValidacion3);
+        Validacion validacion1 = new Validacion("Audio Validacion", "validacion1", 1,
+        new List<OpcionValidacion> {
+            opcionValidacion1, opcionValidacion2, opcionValidacion3
+        });
 
-        Validacion validacion2 = new Validacion("Audio Validacion", "validacion2", 1);
-        validacion2.setOpcionValidacion(opcionValidacion1);
-        validacion2.setOpcionValidacion(opcionValidacion2);
-        validacion2.setOpcionValidacion(opcionValidacion3);
+        Validacion validacion2 = new Validacion("Audio Validacion", "validacion2", 1,
+        new List<OpcionValidacion> {
+            opcionValidacion1, opcionValidacion2, opcionValidacion3
+        });
 
-        SubOpcionLlamada subOpcionLlamada1 = new SubOpcionLlamada("1.SubOpcion", 1);
-        subOpcionLlamada1.setValidacion(validacion1);
+        SubOpcionLlamada subOpcionLlamada1 = new SubOpcionLlamada("1.SubOpcion", 1,
+        new List<Validacion> {
+            validacion1
+        });
 
-        SubOpcionLlamada subOpcionLlamada2 = new SubOpcionLlamada("2.SubOpcion", 2);
-        subOpcionLlamada2.setValidacion(validacion2);
+        SubOpcionLlamada subOpcionLlamada2 = new SubOpcionLlamada("2.SubOpcion", 2,
+        new List<Validacion> {
+            validacion2
+        });
 
-        OpcionLlamada opcionLlamada = new OpcionLlamada("Audio opcion", "Mensaje opcion", "opcion1", 1);
-        opcionLlamada.setSubOpcion(subOpcionLlamada1);
-        opcionLlamada.setSubOpcion(subOpcionLlamada2);
+        OpcionLlamada opcionLlamada = new OpcionLlamada("Audio opcion", "Mensaje opcion", "opcion1", 1,
+        new List<SubOpcionLlamada> {
+            subOpcionLlamada1, subOpcionLlamada2
+        });
 
         CategoriaLlamada categoriaLlamada = new CategoriaLlamada("Audio Categoria", "Mensaje Categoria", "Categoria1", 1);
-        categoriaLlamada.setOpcionLlamada(opcionLlamada);
 
         InformacionCliente info1 = new InformacionCliente("1991", validacion1, opcionValidacion1);
         InformacionCliente info2 = new InformacionCliente("1997", validacion1);
@@ -94,14 +98,13 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         InformacionCliente info6 = new InformacionCliente("1999", validacion2);
 
         Cliente cliente = new Cliente(29232323, "Jose Pereyra", 351232324,
-            new List<InformacionCliente> { info1, info2, info3, info4, info5, info6 });
+            new List<InformacionCliente> { info1, info2, info3, info4, info5, info6 }
+        );
 
-        Llamada llamada = new Llamada(cliente);
-        llamada.setCategoriaLlamada(categoriaLlamada);
-        llamada.setEstadoActual(cambioEstado);
-        llamada.setOpcionSeleccionada(opcionLlamada);
-        llamada.setSubOpcionesSeleccionada(subOpcionLlamada2);
-        llamada.setSubOpcionesSeleccionada(subOpcionLlamada1);
+        Llamada llamada = new Llamada(cliente, new List<CambioEstado> { cambioEstado }, categoriaLlamada, opcionLlamada,
+        new List<SubOpcionLlamada> {
+            subOpcionLlamada1, subOpcionLlamada2
+        });
 
         this.llamadas = new List<Llamada> {
             llamada
@@ -233,7 +236,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     {
         List<string> acciones = new List<string>();
 
-        foreach(Accion accion in this.acciones)
+        foreach (Accion accion in this.acciones)
         {
             acciones.Add(accion.getDescripcion());
         }
@@ -250,10 +253,10 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     [HttpPost]
     [Route("accion-requerida")]
     public bool tomarAccionRequerida(string accionRequerida)
-    {   
+    {
         bool esValido = false;
 
-        if(accionRequerida != "")
+        if (accionRequerida != "")
         {
             this.accionRequerida = accionRequerida;
             esValido = true;
@@ -288,7 +291,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
     public void registrarFinalizacionLlamada()
     {
         this.llamadaCliente.setDescripcionOperador(this.descripcionOperador);
-        
+
         Accion accionRequerida = new Accion(this.accionRequerida);
         this.llamadaCliente.setAccionRequerida(accionRequerida);
 

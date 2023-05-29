@@ -6,10 +6,11 @@ public class SubOpcionLlamada
     private int nroOrden;
     private List<Validacion> validacionRequerida = new List<Validacion>();
 
-    public SubOpcionLlamada(string nombre, int nroOrden)
+    public SubOpcionLlamada(string nombre, int nroOrden, List<Validacion> validacionRequerida)
     {
         this.nombre = nombre;
         this.nroOrden = nroOrden;
+        this.validacionRequerida = validacionRequerida;
     }
 
     public bool esNro(int nro)
@@ -38,9 +39,9 @@ public class SubOpcionLlamada
     {
         return "";
     }
-    public void setValidacion(Validacion validacion)
+    public void setValidacion(List<Validacion> validacion)
     {
-        this.validacionRequerida.Add(validacion);
+        this.validacionRequerida = validacion;
     }
 
     public List<Validacion> getValidacionRequerida ()

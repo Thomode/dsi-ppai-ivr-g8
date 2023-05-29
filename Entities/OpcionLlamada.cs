@@ -6,15 +6,16 @@ public class OpcionLlamada
     private string mensajeSubOpciones;
     private string nombre;
     private int nroOrden;
-    private List<SubOpcionLlamada> subOpcionLlamada = new List<SubOpcionLlamada>();
+    private List<SubOpcionLlamada> subOpcionLlamada;
     private List<Validacion> validacionRequerida = new List<Validacion>();
 
-    public OpcionLlamada(string audioMensajeOpciones, string mensajeSubOpciones, string nombre, int nroOrden)
+    public OpcionLlamada(string audioMensajeOpciones, string mensajeSubOpciones, string nombre, int nroOrden, List<SubOpcionLlamada> subOpcionLlamada)
     {
         this.audioMensajeOpciones = audioMensajeOpciones;
         this.mensajeSubOpciones = mensajeSubOpciones;
         this.nombre = nombre;
         this.nroOrden = nroOrden;
+        this.subOpcionLlamada = subOpcionLlamada;
     }
 
     public string getAudioMensajeOpciones()
@@ -38,9 +39,9 @@ public class OpcionLlamada
         return this.nombre;
     }
 
-    public void setSubOpcion(SubOpcionLlamada subOpcion)
+    public void setSubOpcion(List<SubOpcionLlamada> subOpcion)
     {
-        this.subOpcionLlamada.Add(subOpcion);
+        this.subOpcionLlamada = subOpcion;
     }
 
     public List<string> getNombreSubOpciones()

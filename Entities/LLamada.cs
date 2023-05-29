@@ -5,17 +5,20 @@ public class Llamada
     private string descripcionOperador = "";
     private string detalleAccionRequerida = "";
     private int duracion = 0;
-    private List<CambioEstado> cambiosEstados = new List<CambioEstado>();
+    private List<CambioEstado> cambiosEstados;
     private Cliente cliente;
     private OpcionLlamada opcionSeleccionada;
-    private List<SubOpcionLlamada> subOpcionSeleccionada = new List<SubOpcionLlamada>();
+    private List<SubOpcionLlamada> subOpcionSeleccionada;
     private CategoriaLlamada categoriaLlamada;
-    private Accion accionRequerida;
+    private Accion accionRequerida = null;
 
-    public Llamada(Cliente cliente, Accion accionRequerida = null)
+    public Llamada(Cliente cliente, List<CambioEstado> cambiosEstados, CategoriaLlamada categoriaLlamada, OpcionLlamada opcionSeleccionada, List<SubOpcionLlamada> subOpcionSeleccionada)
     {
         this.cliente = cliente;
-        this.accionRequerida = accionRequerida;
+        this.cambiosEstados = cambiosEstados;
+        this.categoriaLlamada = categoriaLlamada;
+        this.opcionSeleccionada = opcionSeleccionada;
+        this.subOpcionSeleccionada = subOpcionSeleccionada;
     }
 
     public int calcularDuracion()
@@ -91,12 +94,6 @@ public class Llamada
         this.cambiosEstados.Add(cambioEstado);
     }
 
-    // Funcion falta realizar (es la misma funcion del anterior)
-    public void newCambioDeEstado()
-    {
-
-    }
-
     public void setOpcion(OpcionLlamada opcion)
     {
         this.opcionSeleccionada = opcion;
@@ -158,9 +155,9 @@ public class Llamada
     {
         this.opcionSeleccionada = opcionLlamada;
     }
-    public void setSubOpcionesSeleccionada(SubOpcionLlamada subOpcionLlamada)
+    public void setSubOpcionesSeleccionada(List<SubOpcionLlamada> subOpcionSeleccionada)
     {
-        this.subOpcionSeleccionada.Add(subOpcionLlamada);
+        this.subOpcionSeleccionada = subOpcionSeleccionada;
     }
     public OpcionLlamada getOpcionSeleccionada()
     {
