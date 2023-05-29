@@ -18,7 +18,7 @@ public class Llamada
         this.accionRequerida = accionRequerida;
     }
 
-    public void calcularDuracion()
+    public int calcularDuracion()
     {
         DateTime fechaHoraIniciada = new DateTime();
         DateTime fechaHoraFinalizada = new DateTime();
@@ -37,10 +37,14 @@ public class Llamada
 
         TimeSpan duracion = fechaHoraFinalizada - fechaHoraIniciada;
 
-        this.duracion = (int)duracion.TotalMinutes;
+        return (int)duracion.TotalMinutes;
     }
 
-    // Que tiene que retornar
+    public void setDuracion(int duracion)
+    {
+        this.duracion = duracion;
+    }
+
     public bool esDePeriodo(DateTime fechaInicio, DateTime fechaFinal)
     {
         DateTime fechaHoraIniciada = new DateTime();
@@ -82,11 +86,6 @@ public class Llamada
         this.descripcionOperador = descripcionOperador;
     }
 
-    public void setDuracion(int duracion)
-    {
-        this.duracion = duracion;
-    }
-
     public void setEstadoActual(CambioEstado cambioEstado)
     {
         this.cambiosEstados.Add(cambioEstado);
@@ -109,10 +108,10 @@ public class Llamada
     }
 
     public bool esEstadoInicial()
-    {   
+    {
         bool esInicial = false;
 
-        foreach( CambioEstado cambio in cambiosEstados)
+        foreach (CambioEstado cambio in cambiosEstados)
         {
             if (cambio.esEstadoInicial())
             {
@@ -125,10 +124,10 @@ public class Llamada
     }
 
     public bool esEstadoFinalizada()
-    {   
+    {
         bool esFinalizada = false;
 
-        foreach( CambioEstado cambio in cambiosEstados)
+        foreach (CambioEstado cambio in cambiosEstados)
         {
             if (cambio.esEstadoFinalizada())
             {
@@ -176,5 +175,10 @@ public class Llamada
     public Accion getAccionRequerida()
     {
         return this.accionRequerida;
+    }
+
+    public void setAccionRequerida(Accion accionRequerida)
+    {
+        this.accionRequerida = accionRequerida;
     }
 }

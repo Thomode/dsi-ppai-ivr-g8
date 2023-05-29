@@ -269,16 +269,51 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     }
 
+    [HttpPost]
+    [Route("confirmacion")]
+    public bool tomarConfirmacionOperador(bool confirmacion)
+    {
+        bool registroRealizado = false;
+
+        if (confirmacion)
+        {
+            this.registrarFinalizacionLlamada();
+            registroRealizado = true;
+        }
+
+        return registroRealizado;
+    }
+
     [NonAction]
     public void registrarFinalizacionLlamada()
     {
+        this.llamadaCliente.setDescripcionOperador(this.descripcionOperador);
+        
+        Accion accionRequerida = new Accion(this.accionRequerida);
+        this.llamadaCliente.setAccionRequerida(accionRequerida);
 
+        this.getFechaHoraActual();
+        this.asignarEstadoFinalizado();
+
+        int duracion = this.llamadaCliente.calcularDuracion();
+        this.llamadaCliente.setDuracion(duracion);
     }
 
     [NonAction]
     public void asignarEstadoFinalizado()
     {
+        Estado estadoEnCurso = new Estado("Iniciada");
 
+        foreach (Estado estado in estados)
+        {
+            if (estado.esFinalizada())
+            {
+                estadoEnCurso = estado;
+            }
+        }
+        CambioEstado cambio = new CambioEstado(this.fechaHoraActual, estadoEnCurso);
+
+        this.llamadaCliente.setEstadoActual(cambio);
     }
 
     [NonAction]
