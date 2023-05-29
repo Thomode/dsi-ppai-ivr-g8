@@ -198,7 +198,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpPost]
     [Route("validacion")]
-    public bool tomarRespuestaValidacion(string descripcionOpcionV)
+    public bool tomarRespuestaValidacion([FromBody] string descripcionOpcionV)
     {
         return this.validarRespuestaIngresada(descripcionOpcionV);
     }
@@ -217,7 +217,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpPost]
     [Route("descripcion-operador")]
-    public bool tomarDescripcionRespuesta(string descripcionOperador)
+    public bool tomarDescripcionRespuesta([FromBody] string descripcionOperador)
     {
         bool esValido = false;
 
@@ -252,7 +252,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpPost]
     [Route("accion-requerida")]
-    public bool tomarAccionRequerida(string accionRequerida)
+    public bool tomarAccionRequerida([FromBody] string accionRequerida)
     {
         bool esValido = false;
 
@@ -274,7 +274,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpPost]
     [Route("confirmacion")]
-    public bool tomarConfirmacionOperador(bool confirmacion)
+    public bool tomarConfirmacionOperador([FromBody] bool confirmacion)
     {
         bool registroRealizado = false;
 
