@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using dsi_ppai_ivr_g8.Entities;
+using dsi_ppai_ivr_g8.Models;
 
 namespace dsi_ppai_ivr_g8.Controllers;
 
@@ -198,9 +199,10 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpPost]
     [Route("validacion")]
-    public bool tomarRespuestaValidacion([FromBody] string descripcionOpcionV)
+    public bool tomarRespuestaValidacion([FromBody] ValidacionBody validacion)
     {
-        return this.validarRespuestaIngresada(descripcionOpcionV);
+        String descripcion = validacion.descripcion;
+        return this.validarRespuestaIngresada(descripcion);
     }
 
     [NonAction]
