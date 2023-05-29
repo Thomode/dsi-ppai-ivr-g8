@@ -219,13 +219,13 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpPost]
     [Route("descripcion-operador")]
-    public bool tomarDescripcionRespuesta([FromBody] string descripcionOperador)
+    public bool tomarDescripcionRespuesta([FromBody] ValidacionBody operador)
     {
         bool esValido = false;
 
-        if (descripcionOperador != "")
+        if (operador.descripcion != "")
         {
-            this.descripcionOperador = descripcionOperador;
+            this.descripcionOperador = operador.descripcion;
             esValido = true;
         }
 
@@ -254,13 +254,13 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpPost]
     [Route("accion-requerida")]
-    public bool tomarAccionRequerida([FromBody] string accionRequerida)
+    public bool tomarAccionRequerida([FromBody] ValidacionBody accion)
     {
         bool esValido = false;
 
-        if (accionRequerida != "")
+        if (accion.descripcion != "")
         {
-            this.accionRequerida = accionRequerida;
+            this.accionRequerida = accion.descripcion;
             esValido = true;
         }
 
@@ -276,11 +276,11 @@ public class GestorRegistroDeRespuestaController : ControllerBase
 
     [HttpPost]
     [Route("confirmacion")]
-    public bool tomarConfirmacionOperador([FromBody] bool confirmacion)
+    public bool tomarConfirmacionOperador([FromBody] ConfirmacionBody confirmacion)
     {
         bool registroRealizado = false;
 
-        if (confirmacion)
+        if (confirmacion.confirmacion)
         {
             this.registrarFinalizacionLlamada();
             registroRealizado = true;
