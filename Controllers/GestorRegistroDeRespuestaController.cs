@@ -63,27 +63,52 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         OpcionValidacion opcionValidacion2 = new OpcionValidacion(false, "1997");
         OpcionValidacion opcionValidacion3 = new OpcionValidacion(false, "1999");
 
-        Validacion validacion1 = new Validacion("Audio Validacion", "validacion1", 1,
+        OpcionValidacion opcionValidacion4 = new OpcionValidacion(true, "5000");
+        OpcionValidacion opcionValidacion5 = new OpcionValidacion(false, "5001");
+        OpcionValidacion opcionValidacion6 = new OpcionValidacion(false, "5016");
+
+        OpcionValidacion opcionValidacion7 = new OpcionValidacion(true, "1");
+        OpcionValidacion opcionValidacion8 = new OpcionValidacion(false, "2");
+        OpcionValidacion opcionValidacion9 = new OpcionValidacion(false, "0");
+
+        OpcionValidacion opcionValidacion10 = new OpcionValidacion(true, "jose.pereyra@gmail.com");
+        OpcionValidacion opcionValidacion11 = new OpcionValidacion(false, "jose.l@gmail.com");
+        OpcionValidacion opcionValidacion12 = new OpcionValidacion(false, "juan.pereyra@gmail.com");
+
+
+        Validacion validacion1 = new Validacion("Audio Validacion", "¿Año de nacimiento?", 1,
         new List<OpcionValidacion> {
             opcionValidacion1, opcionValidacion2, opcionValidacion3
         });
 
-        Validacion validacion2 = new Validacion("Audio Validacion", "validacion2", 1,
+        Validacion validacion2 = new Validacion("Audio Validacion", "¿Codigo postal?", 2,
         new List<OpcionValidacion> {
-            opcionValidacion1, opcionValidacion2, opcionValidacion3
+            opcionValidacion4, opcionValidacion5, opcionValidacion6
         });
 
-        SubOpcionLlamada subOpcionLlamada1 = new SubOpcionLlamada("1.SubOpcion", 1,
+
+        Validacion validacion3 = new Validacion("Audio Validacion", "¿Cantidad de hijos?", 3,
+        new List<OpcionValidacion> {
+            opcionValidacion7, opcionValidacion8, opcionValidacion9
+        });
+
+        Validacion validacion4 = new Validacion("Audio Validacion", "¿Correo electronico?", 4,
+        new List<OpcionValidacion> {
+            opcionValidacion10, opcionValidacion11, opcionValidacion12
+        });
+
+
+        SubOpcionLlamada subOpcionLlamada1 = new SubOpcionLlamada("Solicitar una nueva tarjeta", 1,
         new List<Validacion> {
-            validacion1
+            validacion1, validacion2
         });
 
-        SubOpcionLlamada subOpcionLlamada2 = new SubOpcionLlamada("2.SubOpcion", 2,
+        SubOpcionLlamada subOpcionLlamada2 = new SubOpcionLlamada("Anular tarjeta", 2,
         new List<Validacion> {
-            validacion2
+            validacion3, validacion4
         });
 
-        OpcionLlamada opcionLlamada = new OpcionLlamada("Audio opcion", "Mensaje opcion", "opcion1", 1,
+        OpcionLlamada opcionLlamada = new OpcionLlamada("Audio opcion", "Mensaje opcion", "Robo de tarjeta", 1,
         new List<SubOpcionLlamada> {
             subOpcionLlamada1, subOpcionLlamada2
         });
@@ -94,12 +119,20 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         InformacionCliente info2 = new InformacionCliente("1997", validacion1);
         InformacionCliente info3 = new InformacionCliente("1999", validacion1);
 
-        InformacionCliente info4 = new InformacionCliente("1991", validacion2, opcionValidacion1);
-        InformacionCliente info5 = new InformacionCliente("1997", validacion2);
-        InformacionCliente info6 = new InformacionCliente("1999", validacion2);
+        InformacionCliente info4 = new InformacionCliente("5000", validacion2, opcionValidacion4);
+        InformacionCliente info5 = new InformacionCliente("5001", validacion2);
+        InformacionCliente info6 = new InformacionCliente("5016", validacion2);
+
+        InformacionCliente info7 = new InformacionCliente("1", validacion3, opcionValidacion7);
+        InformacionCliente info8 = new InformacionCliente("2", validacion3);
+        InformacionCliente info9 = new InformacionCliente("0", validacion3);
+
+        InformacionCliente info10 = new InformacionCliente("jose.pereyra@gmail.com", validacion4, opcionValidacion10);
+        InformacionCliente info11 = new InformacionCliente("jose.l@gmail.com", validacion4);
+        InformacionCliente info12 = new InformacionCliente("juan.pereyra@gmail.com", validacion4);
 
         Cliente cliente = new Cliente(29232323, "Jose Pereyra", 351232324,
-            new List<InformacionCliente> { info1, info2, info3, info4, info5, info6 }
+            new List<InformacionCliente> { info1, info2, info3, info4, info5, info6, info7, info8, info9, info10, info11, info12 }
         );
 
         Llamada llamada = new Llamada(cliente, new List<CambioEstado> { cambioEstado }, categoriaLlamada, opcionLlamada,
