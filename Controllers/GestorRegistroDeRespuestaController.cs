@@ -18,9 +18,9 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         new Estado("Cancelada")
     };
     private List<Accion> acciones = new List<Accion> {
-        new Accion("Accion1"),
-        new Accion("Accion2"),
-        new Accion("Accion3")
+        new Accion("Denunciar"),
+        new Accion("Bloquear"),
+        new Accion("Solicitar nueva tarjeta")
     };
     private string descripcionOperador = "";
     private string accionRequerida = "";
