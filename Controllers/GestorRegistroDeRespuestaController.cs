@@ -113,7 +113,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
             subOpcionLlamada1, subOpcionLlamada2
         });
 
-        CategoriaLlamada categoriaLlamada = new CategoriaLlamada("Audio Categoria", "Mensaje Categoria", "Categoria1", 1);
+        CategoriaLlamada categoriaLlamada = new CategoriaLlamada("Audio Categoria", "Mensaje Categoria", "Informar un robo", 1);
 
         InformacionCliente info1 = new InformacionCliente("1991", validacion1, opcionValidacion1);
         InformacionCliente info2 = new InformacionCliente("1997", validacion1);
