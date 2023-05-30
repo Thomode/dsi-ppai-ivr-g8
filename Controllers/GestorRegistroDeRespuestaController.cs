@@ -53,7 +53,7 @@ public class GestorRegistroDeRespuestaController : ControllerBase
         };
     }
 
-    [NonAction]
+    [NonAction] // sirve para que swagger no la cuente como url de api
     public void tomarOpcionOperador()
     {
         Estado estado = new Estado("Iniciada");
